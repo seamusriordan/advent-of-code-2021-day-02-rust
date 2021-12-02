@@ -17,7 +17,8 @@ mod tests {
         let position = process_commands(vec![command]);
         let expected_position = Position {
             horizontal: 0,
-            depth: 1,
+            depth: 0,
+            aim: 1
         };
 
         assert_eq!(expected_position, position);
@@ -32,6 +33,7 @@ mod tests {
         let expected_position = Position {
             horizontal: 1,
             depth: -1,
+            aim: -1
         };
 
         assert_eq!(expected_position, position);
@@ -47,11 +49,8 @@ mod tests {
             "down 8",
             "forward 2",
         ]);
-        let expected_position = Position {
-            horizontal: 15,
-            depth: 10,
-        };
 
-        assert_eq!(expected_position, position);
+        assert_eq!(15, position.horizontal);
+        assert_eq!(60, position.depth);
     }
 }

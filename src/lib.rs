@@ -9,6 +9,7 @@ pub enum Command {
 pub struct Position {
     pub horizontal: i32,
     pub depth: i32,
+    pub aim: i32
 }
 
 pub fn process_command_strings(command_strings: Vec<&str>) -> Position {
@@ -35,13 +36,16 @@ pub fn build_command(command_string: &str) -> Command {
 }
 
 pub fn process_commands(commands: Vec<Command>) -> Position {
-    let mut acc = Position { horizontal: 0, depth: 0 };
+    let mut acc = Position { horizontal: 0, depth: 0, aim: 0 };
 
     for command in commands {
         match command {
-            Command::Up(n) => { acc.depth -= n as i32 }
-            Command::Down(n) => { acc.depth += n as i32 }
-            Command::Forward(n) => { acc.horizontal += n as i32 }
+            Command::Down(n) => { acc.aim += n as i32 }
+            Command::Up(n) => { acc.aim -= n as i32 }
+            Command::Forward(n) => {
+                acc.horizontal += n as i32;
+                acc.depth += (n as i32)*acc.aim;
+            }
         }
     }
 
